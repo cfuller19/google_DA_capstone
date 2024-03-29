@@ -8,19 +8,19 @@ The Google Data Analytics professional certification program is designed to equi
 
 [?](https://www.coursera.org/learn/foundations-data?specialization=google-data-analytics)**Course 1: Foundations: Data, Data, Everywhere**
 
-**[?](https://www.coursera.org/learn/ask-questions-make-decisions?specialization=google-data-analytics)****Course 2: Ask Questions to Make Data-Driven Decisions**
+[?](https://www.coursera.org/learn/ask-questions-make-decisions?specialization=google-data-analytics)**Course 2: Ask Questions to Make Data-Driven Decisions**
 
-**[?](https://www.coursera.org/learn/data-preparation?specialization=google-data-analytics)****Course 3: Prepare Data for Exploration**
+[?](https://www.coursera.org/learn/data-preparation?specialization=google-data-analytics)**Course 3: Prepare Data for Exploration**
 
-**[?](https://www.coursera.org/learn/process-data?specialization=google-data-analytics)****Course 4: Process Data from Dirty to Clean**
+[?](https://www.coursera.org/learn/process-data?specialization=google-data-analytics)**Course 4: Process Data from Dirty to Clean**
 
-**[?](https://www.coursera.org/learn/analyze-data?specialization=google-data-analytics)****Course 5: Analyze Data to Answer Questions**
+[?](https://www.coursera.org/learn/analyze-data?specialization=google-data-analytics)**Course 5: Analyze Data to Answer Questions**
 
-**[?](https://www.coursera.org/learn/visualize-data?specialization=google-data-analytics)****Course 6: Share Data Through the Art of Visualization**
+[?](https://www.coursera.org/learn/visualize-data?specialization=google-data-analytics)**Course 6: Share Data Through the Art of Visualization**
 
-**[?](https://www.coursera.org/learn/data-analysis-r?specialization=google-data-analytics)****Course 7: Data Analysis with R Programming**
+[?](https://www.coursera.org/learn/data-analysis-r?specialization=google-data-analytics)**Course 7: Data Analysis with R Programming**
 
-**[?](https://www.coursera.org/learn/google-data-analytics-capstone?specialization=google-data-analytics)****Course 8: Google Data Analytics Capstone: Complete a Case Study**
+[?](https://www.coursera.org/learn/google-data-analytics-capstone?specialization=google-data-analytics)**Course 8: Google Data Analytics Capstone: Complete a Case Study**
 
 This case study was completed to fulfill the requirements of course 8 for this certification program and utilizes the six phases of the data analytic life cycle:
 
@@ -40,7 +40,7 @@ This case study was completed to fulfill the requirements of course 8 for this c
 
 **[About Bellabeat](https://bellabeat.com/)**
 
-Bellabeat is a wellness company founded by Ur?ka Sr?en and Sando Mur in 2013. Their focus is on producing high-tech, health-focused products for women. Their current product line includes:
+Bellabeat is a wellness company founded by Urska Srsen and Sando Mur in 2013. Their focus is on producing high-tech, health-focused products for women. Their current product line includes:
 
 - Bellabeat App - which provides health data on activity, sleep, stress, menstrual cycle, and mindfulness habits to users.
 
@@ -60,35 +60,7 @@ Findings from this analysis will be presented to the company co founders: Ur?ka 
 
 **Data:**
 
-By request of Ur?ka Sr?en, the data used for this analysis consisted of Fitbit Fitness Tracker Data collected voluntarily from 30 fitbit users March-May of 2016. The data set is CC0: Public Domain, and is made available by the user Mobius through [Kaggle.com](https://www.kaggle.com/datasets/arashnic/fitbit). The dataset is described as containing minute-level output for physical activity, heart rate, and sleep monitoring.
-
-The data are provided in two different date sets, and consist of the following csv files. \
-
-
-| Set 1: March 12 - April 11, 2016
-dailyActivity_merged
-Heartrate_seconds_merged
-hourlyCalories_merged
-hourlyIntensities_merged
-minuteCaloriesNarrow_merged
-minuteMETsNarrow_merged
-minuteSleep_merged
-minuteStepsNarrow_merged
-weightLogInfo_merged | Set 2: April 12 - May 12, 2016
-dailyActivity_merged
-dailyCalories_merged
-dailyIntensities_merged
-Heartrate_seconds_merged
-ourlyCalories_merged
-hourlyIntensities_merged
-hourlySteps_merged
-minuteCaloriesNarrow_merged
-minuteCaloriesWide_merged
-minuteMETsNarrow_merged
-minuteStepsWide_merged
-Sleep_day_merged
-weightLogInfo_merged |
-|---|---|
+By request of Urska Srsen, the data used for this analysis consisted of Fitbit Fitness Tracker Data collected voluntarily from 30 fitbit users March-May of 2016. The data set is CC0: Public Domain, and is made available by the user Mobius through [Kaggle.com](https://www.kaggle.com/datasets/arashnic/fitbit). The dataset is described as containing minute-level output for physical activity, heart rate, and sleep monitoring.
 
 **Step 1:**
 
@@ -195,42 +167,11 @@ This would return TRUE for any records where the value in column D was not equal
 
 Column names were then revised to make them easier to work with, both in Sheets and SQL.
 
-| Id ? user_id
-ActivityDate ? activity_date
-TotalSteps ? total_steps
-TotalDistance ? total_distance
-TrackerDistance ? tracker_distance
-LoggedActivity ? logged_activity
-VeryActiveDistance ? v_active_dist
-ModeratelyActiveDistance ? mod_active_dist
-LightActiveDistance ? light_active_dist
-SedentaryActiveDistance ? sed_active_dist
-VeryActiveMinutes ? v_active_min
-FairlyActiveMinutes ? mod_active_min
-LightlyActiveMinutes ? light_active_min
-SedentaryMinutes ? sed_active_min
-Calories ? calories |  |
-|---|---|
-
-The minute_sleep files also contained the same columns:
-
-- Id
-
-- Date
-
-- Value
-
-- logId
+The minute_sleep files contained the same columns.
 
 Each record (row) represents a 1 minute time interval in which a user?s sleep was measured.
 
 However, each file was too large (198,560 and 188,522 records) to merge together in Google Sheets. They would have to be combined in SQL. So, before moving to SQL, the column names were revised to make them easier to work with.
-
-| Id ? user_id
-date ? activity_date
-value ? sleep_num
-logId ? log_id  |  |
-|---|---|
 
 The value column contains the numbers 1, 2, or 3 which appear to correspond to different stages of the sleep cycle, as defined in this blog post: [https://blog.fitbit.com/sleep-stages-explained/](https://blog.fitbit.com/sleep-stages-explained/) where 1 indicates light sleep, 2 indicates deep sleep, and 3 indicates REM sleep. To better represent the categorical nature of this measurement, a new column, sleep_stage, was added to the data using the formula:
 
@@ -288,12 +229,7 @@ The datasets were checked for errors, by first checking for the number of total 
 | SELECT COUNT(*)
 FROM `more-practice-with-sql-416000.Fitness_Tracker.daily_activity_combined`;
 
- | 
-
- |
-|---|---|
-
-This is a high value! Upon inspection it looks like all the blank rows in the google sheet were imported as well. This can be verified by checking for null values.
+Upon inspection it looks like all the blank rows in the google sheet were imported as well. This was verified by checking for null values.
 
 | -- Checking for null values
 -- daily_activity_combined
@@ -815,4 +751,4 @@ There does not appear to be a difference in the average number of users tracking
 
 - 23% of Fitbit users track their sleep more than 90% of the time, with the next largest group (14%) tracking their sleep less than 10% of the time.
 
-Here is a link to the presentation I put together summarizing these findings and recommended action items.
+Here is a link to the presentation I put together summarizing these findings and recommended action items. **[Bellabeat Capstone Presentation](https://docs.google.com/presentation/d/1N1a92JSpZP4dFrCNKaex-6be2wZGuGNtODzYC9QtY7I/edit?usp=sharing)**
