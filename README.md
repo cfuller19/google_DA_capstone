@@ -66,12 +66,6 @@ By request of Urska Srsen, the data used for this analysis consisted of Fitbit F
 
 Data were downloaded from Kaggle and then uploaded to Google Drive. To make the data contents of each file more clear, the files were renamed following best practices.
 
-- ?Merged? was removed from the file names
-
-- Words were converted to all lowercase (except for METs), and a ?_? was placed between words in a name.
-
-- The date of creation was added to each file: 031216 or 041216
-
 **Step 2:**
 
 The data were then examined to identify the contents and organization of each dataset.
@@ -122,39 +116,9 @@ In examination of the datasets provided, I determined that the daily_activity fi
 
 **Step 1:**
 
-I performed an initial examination of the 4 datasets for this analysis, by opening each file in Google Sheets. 
+Using Google Sheets, I performed an initial examination of the 4 datasets for this analysis.
 
-The daily_activity files both contained the same columns:
-
-- Id
-
-- ActivityDate
-
-- TotalSteps
-
-- TotalDistance
-
-- TrackerDistance
-
-- LoggedActivities
-
-- VeryActiveDistance
-
-- ModeratelyActive
-
-- LightActiveDistance
-
-- SedentaryActive
-
-- VeryActiveMinutes
-
-- FairlyActiveMinutes
-
-- LightlyActiveMinutes
-
-- SedentaryMinutes
-
-- Calories
+I combined each daily_activity file into one sheet, which was named "daily_activity_combined". This merging was accomplished using the import file function.
 
 Each file was small enough (458 and 940 records) that I could easily merge them together into one spreadsheet. These files were merged together into a new file: daily_activity_combined using the ?import file? function.
 
@@ -163,13 +127,9 @@ At first glance, the TotalDistance (D) and TrackerDistance (E) columns appeared 
 
 This would return TRUE for any records where the value in column D was not equal to the value in column E. To make the TRUE values easier to identify, I also added conditional formatting to turn TRUE cells a yellow color. In examining the results, the majority of values in D matched E, however, there were some records that did not match, indicating these two columns did not contain duplicate information.
 
-![](/images/Cbg_Image_1.png)
-
 Column names were then revised to make them easier to work with, both in Sheets and SQL.
 
-The minute_sleep files contained the same columns.
-
-Each record (row) represents a 1 minute time interval in which a user?s sleep was measured.
+The minute_sleep files contained the same columns. With each record (row) representing a 1 minute time interval in which a user's sleep was measured.
 
 However, each file was too large (198,560 and 188,522 records) to merge together in Google Sheets. They would have to be combined in SQL. So, before moving to SQL, the column names were revised to make them easier to work with.
 
@@ -223,7 +183,7 @@ LIMIT 5;
 **Step 1:**
 
 The datasets were checked for errors, by first checking for the number of total records in each data set.
-
+```
 *daily_activity_combined*
 
 | SELECT COUNT(*)
@@ -252,11 +212,11 @@ WHERE user_id IS NULL AND
   calories IS NULL;
  |  |
 |---|---|
-
+```
 49,102 null records were returned, which is consistent with the blank rows in the google sheet being imported.
 
 The next step was to drop these records from the table. Since I knew the source of the data and could verify these were blank rows, I was comfortable permanently deleting these records from the table. Here?s where I ran into a snag in my analysis.
-
+```
 | --Deleting Null Records from daily_activity_combined
 DELETE FROM `more-practice-with-sql-416000.Fitness_Tracker.daily_activity_combined`
 WHERE user_id IS NULL AND
@@ -275,11 +235,11 @@ WHERE user_id IS NULL AND
   sed_active_min IS NULL AND
   calories IS NULL; |  |
 |---|---|
-
+```
 Since I was using the free version of BigQuery, I was unable to delete these records from the table. At this point I decided to delete the records directly from Google Sheets, and then re-import the newly cleaned daily_activity_combined table into BigQuery.
 
 With the newly imported daily_activity_combined, I checked for the presence of null values in any of the columns.
-
+```
 | --Checking for null values
 SELECT *
 FROM `more-practice-with-sql-416000.Fitness_Tracker.daily_activity_combined`
@@ -300,16 +260,18 @@ WHERE user_id IS NULL OR
   calories IS NULL; | 
 No null values were found. |
 |---|---|
-
+```
+```
 *minute_sleep_031216*
 
 | SELECT COUNT(*)
 FROM `more-practice-with-sql-416000.Fitness_Tracker.minute_sleep_031216`
  |  |
 |---|---|
-
+```
 This value corresponds with the number of records reflected in the Google Sheets version of this table, confirming there are no empty rows present.
 
+```
 | --Checking for null values
 SELECT *
 FROM `more-practice-with-sql-416000.Fitness_Tracker.minute_sleep_031216`
@@ -318,7 +280,7 @@ WHERE user_id IS NULL OR
   sleep_num IS NULL OR
   sleep_stage IS NULL OR
   log_id IS NULL;
- | 
+ ```
 No null values were found. |
 |---|---|
 
